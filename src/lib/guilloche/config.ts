@@ -232,6 +232,16 @@ export const mobileConfig: Partial<GuillocheConfig> = {
   maxDpr: 1.5,
 };
 
+/**
+ * Overrides may be partial one level deep: nested objects (liquid, band…)
+ * merge field-by-field in resolveConfig instead of replacing wholesale.
+ */
+export type GuillocheOverrides = {
+  [K in keyof GuillocheConfig]?: GuillocheConfig[K] extends object
+    ? Partial<GuillocheConfig[K]>
+    : GuillocheConfig[K];
+};
+
 /** Object-valued keys that merge field-by-field instead of being replaced. */
 const NESTED = [
   "lattice",
@@ -247,16 +257,17 @@ const NESTED = [
   "intro",
 ] as const;
 
-function merge(base: GuillocheConfig, over: Partial<GuillocheConfig>): GuillocheConfig {
-  const out = { ...base, ...over };
+function merge(base: GuillocheConfig, over: GuillocheOverrides): GuillocheConfig {
+  const out = { ...base, ...over } as GuillocheConfig;
   for (const key of NESTED) {
-    if (over[key]) (out as Record<string, unknown>)[key] = { ...base[key], ...over[key] };
+    if (over[key])
+      (out as unknown as Record<string, unknown>)[key] = { ...base[key], ...over[key] };
   }
   return out;
 }
 
 export function resolveConfig(
-  overrides: Partial<GuillocheConfig> = {},
+  overrides: GuillocheOverrides = {},
   viewportWidth = typeof window === "undefined" ? 1440 : window.innerWidth,
 ): GuillocheConfig {
   const base =

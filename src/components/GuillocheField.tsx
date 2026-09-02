@@ -5,12 +5,12 @@ import {
   createGuillocheField,
   darkColors,
   lightColors,
-  type GuillocheConfig,
+  type GuillocheOverrides,
 } from "@/lib/guilloche";
 
 interface Props {
   /** Partial overrides for the field config. Tune in src/lib/guilloche/config.ts first. */
-  config?: Partial<GuillocheConfig>;
+  config?: GuillocheOverrides;
 }
 
 /**

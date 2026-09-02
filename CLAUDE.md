@@ -93,7 +93,17 @@ scripts/shot.mjs        Playwright screenshot helper
 4. The test is always the question in `docs/BRIEF.md` §3: is it more
    beautiful, and does it still read as engraved money?
 
+## The tele gate
+
+`tele.munerate.com` (host-rewritten by `src/middleware.ts` to
+`src/app/(sub)/tele/`) gates the telemetry demo by IP whitelist — see
+`docs/SUBDOMAINS.md` for the full pattern. Env vars in `.env.example`:
+`RESEND_API_KEY` (unset = log-only), `TELE_WHITELIST` (IPs/CIDRs),
+`TELE_NOTIFY_EMAIL`, `TELE_FROM_EMAIL`. Emails go via Resend's REST API
+with plain `fetch` — no SDK. Test locally at `tele.localhost:3000`.
+
 ## Out of scope for now
 
-Subdomain routing, CMS, auth, forms, blog. Documented as decisions in
-`docs/SUBDOMAINS.md`; do not start them unprompted.
+CMS, auth, blog, other subdomain surfaces (only `tele` is live).
+Documented as decisions in `docs/SUBDOMAINS.md`; do not start them
+unprompted.

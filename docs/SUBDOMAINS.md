@@ -1,6 +1,29 @@
 # Subdomain surfaces — decision record
 
-**Status: deferred.** The landing is the only surface in this phase.
+**Status: active for `tele`** (since 2026-09-02); all other prefixes remain
+deferred. `src/middleware.ts` + `src/app/(sub)/tele/` implement the
+recommended approach below; `src/lib/prefixes.ts` is the prefix registry.
+
+## The tele gate (first live surface)
+
+tele.munerate.com serves the robotic telemetry demo to IP-whitelisted
+organisations only:
+
+- Client IP (x-forwarded-for / x-real-ip) is checked against the
+  `TELE_WHITELIST` env var (comma-separated IPs/CIDRs) by
+  `src/lib/tele/ipAllow.ts` — zero-dep IPv4/IPv6/CIDR matcher.
+- Whitelisted → `DemoHolding` (placeholder until the real demo replaces
+  that one component). Everyone else → `AccessForm`: org, org type,
+  contact, email, requested IPs (+ "use my current IP" chip), use case.
+- Submissions go through a Server Action → Resend (plain fetch, no SDK):
+  admin notification to `TELE_NOTIFY_EMAIL` with a paste-ready
+  `TELE_WHITELIST` line, plus applicant confirmation. `RESEND_API_KEY`
+  unset = log-only dev mode. Honeypot + per-IP once-a-minute rate limit.
+- Whitelisting someone = append their IPs to `TELE_WHITELIST` on the host
+  and redeploy. A KV store can replace the env var later without touching
+  the page.
+
+Local testing: `tele.localhost:3000` (Chrome resolves `*.localhost`).
 
 ## The shape of the brand
 

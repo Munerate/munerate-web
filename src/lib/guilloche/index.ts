@@ -13,10 +13,10 @@
  * calls per frame (lattice, band), plus optional chords/nodes.
  */
 
-import { type GuillocheConfig, resolveConfig } from "./config";
+import { type GuillocheConfig, type GuillocheOverrides, resolveConfig } from "./config";
 import { FRAGMENT_SHADER, VERTEX_SHADER } from "./shaders";
 
-export type { GuillocheConfig } from "./config";
+export type { GuillocheConfig, GuillocheOverrides } from "./config";
 export {
   darkColors,
   defaultConfig,
@@ -178,7 +178,7 @@ function vao(
 
 export function createGuillocheField(
   canvas: HTMLCanvasElement,
-  overrides: Partial<GuillocheConfig> = {},
+  overrides: GuillocheOverrides = {},
 ): GuillocheField | null {
   const cfg = resolveConfig(overrides);
   const ctx = canvas.getContext("webgl2", {

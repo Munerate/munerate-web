@@ -9,7 +9,10 @@ import { Wordmark } from "@/components/Wordmark";
  * "re", "pre", "retro", "micro", "poly", "para", "com", "auto", "inter".
  */
 const PREFIX = "tele";
-const HREF = "https://tele.munerate.com";
+const HREF =
+  process.env.NODE_ENV === "production"
+    ? "https://tele.munerate.com"
+    : "http://tele.localhost:3000";
 
 /**
  * The hero: wordmark + tagline, with the "intaglio lift" hover — the type

@@ -269,6 +269,192 @@ a {
   }
 }
 
+/* Tele — the demo gate ---------------------------------------------- */
+
+.tele__body {
+  display: grid;
+  place-content: center;
+  padding-block: var(--space-8);
+}
+
+.tele__panel {
+  width: min(560px, 100%);
+  animation: rise var(--dur-slow) var(--ease-out) both;
+}
+
+.tele .wordmark {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  animation: none;
+  display: inline-block;
+}
+
+.tele__title {
+  margin: var(--space-8) 0 0;
+  font-size: var(--fs-meta);
+  font-weight: 500;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--teal);
+}
+
+.tele__lede {
+  margin: var(--space-3) 0 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ink);
+  max-width: 46ch;
+}
+
+.tele-form {
+  display: grid;
+  gap: var(--space-6);
+  margin-top: var(--space-8);
+}
+
+.tele-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+}
+
+.tele-form__field {
+  display: grid;
+  gap: var(--space-2);
+  align-content: start;
+}
+
+.tele-form__label {
+  font-size: var(--fs-meta);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.tele-form__optional {
+  color: var(--ink-faint);
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+}
+
+.tele-form__input {
+  font: inherit;
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--rule);
+  border-radius: 0;
+  padding: 0.45em 0;
+  transition: border-color 200ms var(--ease-out);
+}
+
+.tele-form__input:focus {
+  outline: none;
+  border-bottom-color: var(--teal);
+}
+
+select.tele-form__input {
+  appearance: none;
+  cursor: pointer;
+}
+
+select.tele-form__input:invalid {
+  color: var(--ink-faint);
+}
+
+textarea.tele-form__input {
+  resize: vertical;
+}
+
+.tele-form__ips {
+  font-variant-numeric: tabular-nums;
+}
+
+.tele-form__chip {
+  justify-self: start;
+  font-size: var(--fs-meta);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  background: none;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  padding: 0.35em 0.8em;
+  cursor: pointer;
+  transition:
+    color 200ms var(--ease-out),
+    border-color 200ms var(--ease-out);
+}
+
+.tele-form__chip:hover {
+  color: var(--teal);
+  border-color: var(--teal);
+}
+
+.tele-form__error {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--teal);
+}
+
+.tele-form__error--top {
+  font-size: 0.9rem;
+}
+
+.tele-form__submit {
+  justify-self: start;
+  font: inherit;
+  font-size: var(--fs-meta);
+  font-weight: 500;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--ink);
+  background: none;
+  border: 1px solid var(--ink);
+  border-radius: 2px;
+  padding: 0.9em 2.2em;
+  cursor: pointer;
+  transition:
+    background-color 200ms var(--ease-out),
+    color 200ms var(--ease-out);
+}
+
+.tele-form__submit:hover:not(:disabled) {
+  background: var(--ink);
+  color: var(--ground);
+}
+
+.tele-form__submit:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+.tele-form__privacy {
+  margin: 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-faint);
+}
+
+.tele__hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+@media (max-width: 640px) {
+  .tele-form__row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tele__panel {
+    animation: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
 
   .wordmark,
