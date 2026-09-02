@@ -1,0 +1,35 @@
+{
+  "name": "munerate-web",
+  "version": "0.1.0",
+  "private": true,
+  "description": "munerate. \u2014 Finance for intelligence. Landing page and subdomain surfaces.",
+  "engines": {
+    "node": ">=20.9"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "proto:build": "esbuild src/lib/guilloche/index.ts --bundle --format=esm --target=es2022 --outfile=prototype/dist/field.js",
+    "proto": "npm run proto:build && serve . -l 4173",
+    "shot": "node scripts/shot.mjs"
+  },
+  "dependencies": {
+    "next": "15.5.2",
+    "react": "19.1.1",
+    "react-dom": "19.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "esbuild": "^0.25.9",
+    "eslint": "^9.34.0",
+    "eslint-config-next": "15.5.2",
+    "playwright": "^1.55.0",
+    "serve": "^14.2.4",
+    "typescript": "^5.9.2"
+  }
+}

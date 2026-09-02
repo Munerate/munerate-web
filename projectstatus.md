@@ -1,0 +1,33 @@
+# munerate-web — status
+ 
+_Last updated 2026-09-02 (session 3)_
+ 
+## Decisions taken
+- Stack: Next.js 15 (App Router) + TypeScript, plain CSS with design tokens, Space Grotesk via next/font.
+- Animation: raw WebGL2, zero dependencies (Three.js deliberately not used — same visual result, no 600 KB import). Lives in `src/lib/guilloche/` and is framework-agnostic; a standalone `prototype/` page serves as the tuning playground.
+- Subdomains (tele., re., pre., …): **landing only for now**. Recommended future approach is one Next app with host-based middleware rewrites — written up in `docs/SUBDOMAINS.md`.
+- Tagline: "Finance for intelligence". Positioning line: "The financial core for physical AI".
+- No full stop after "munerate" anywhere — wordmark, copy, metadata, favicon (decision session 3). Teal is an accent colour only.
+- Field composition: **the engraved sheet** (decision session 3) — full-bleed banknote surface, not a floating object. Nodes/chords retired from the default look (the "generic wireframe" tell).
+- Palette from the brand pack: Navy Ink #0A1B2E, Teal #10B39E, Mint #7EE6D1, Paper #E8ECEF, Cream #F7F3E9. Cream is the ground; teal is the only accent.
+## What exists
+- Repo `munerate-web` (delivered as a zip in session 1; not yet pushed anywhere).
+- The living wordmark (session 4): hover = "intaglio lift" — the type leans toward the cursor in CSS 3D (registered @property transitions, no libraries) on a stack of layered ink shadows, while the field surges around the eye (`setFocus`/`uFocus`: ink ×1.35, width ×1.2, more mint). All disabled under reduced motion.
+- The mark is a link (session 4b): while hovered, ghost affixes complete the live URL around the wordmark — `tele·` before, `.com` after, both at 0.42× size on the baseline, zero-gap padding (user's tweak) — and the whole mark links to https://tele.munerate.com (robotics insurance demo, live domain). Other prefixes are parked in a comment in Hero.tsx until their surfaces exist. **This landing is considered sufficient for now — no further buttons/CTAs.**
+- Dark mode "the engraver's plate" (session 4): near-black ground, line-work as bright cut metal. Token flip in tokens.css under `data-theme="dark"`, live field palette swap via `setPalette` (opacity ×1.3), NOTE·PLATE toggle in the footer, localStorage persistence + pre-paint script (no flash), `prefers-color-scheme` default. Reference frame: docs/screenshots/landing-dark.png.
+- Cursor acts everywhere (session 3h): removed the "eye stays sovereign" suppression zone that made lines near the wordmark ignore the cursor entirely — pointer falloff is now purely distance-based; no location-gated motion anywhere in the shader.
+- NO STATIC LINES (session 3g, user's final ruling): all contour machinery removed from the shader — the eye is purely an opening (calmed waves + tanh part + interior thinning via `clearing.{push,thin}`); every stroke moves and responds to the cursor everywhere. Config schema returned to `clearing: {center, radius, push, thin}`.
+- The opening eye (session 3f, settled): the coil was still too static/sealed — dialed back to partial adherence (rim 0.6, ~45% wave and 60% depth alive on the coil) and inner band strands now skip the coil entirely, passing behind the text as faint ghosts — the eye opens in front of a field that keeps flowing behind it.
+- Living coil (session 3e): the fully-exact coil read as "hard candy in a wrapper" — softened so the eye breathes: 20% of the wave and 30% of the depth weave survive on the coil, strands release before the tips (open weaves at the sides, no pinch), and the clearing tightened to [1.08, 0.5] so the text is focal without dead space.
+- The coiled eye (session 3d, final form): the separate rosette medallion was rejected as pasted-on; instead the band's own strands now coil into the eye — within the clearing's reach each strand's wave damps to zero and it follows one exact ellipse contour (its own ring, ordered so strands never cross), then flows back out. Native to the field AND machine-exact. Three recorded dead ends: organic gather = smoke, separate medallion = pasted-on, low-frequency modulation on the ring = wobble.
+- The rosette (session 3c, "Royal Mint" pass): randomness retired — `liquid.amplitude` is 0 (noise off; all motion is periodic crawl/travel/shimmer) and the eye is now a machine-exact oval guilloché medallion (`rosette.*`): 60 nested rings with fine integer-frequency scallops (16/24/40) framing the wordmark, band passing behind it. Learned: low-frequency scallops read as wobble, wrapping the band around the medallion reads as smoke — both recorded in ANIMATION.md.
+- The eye + the twine (session 3b): the clearing became a focal frame — lines bow around the wordmark's ellipse and stack against its rim (`clearing.rim`/`rimWidth`), so the text is unmistakably the centre; the pointer loupe was replaced by twine binding — band strands converge and wind helically around each other in three plies under the cursor (`pointer.{bind,wind,pitch}`), suppressed inside the eye. Probes confirmed the helix must be amplitude-bounded (rotating raw offsets buries the wordmark in coils — noted in ANIMATION.md).
+- The engraved sheet (session 3, full engine rewrite): ribbon strokes (extruded quads with analytic AA and swelling line weight — no more 1px GL lines), two-layer composition (full-bleed navy wave lattice with real moiré + braided teal/navy band sweeping off both sides), lens clearing around the wordmark, coherent liquid (travelling wave + low-frequency warp), pointer as loupe (local magnification), static paper grain, reduced-motion still frame, portrait zoom, tab-visibility pause.
+- Draw-in intro: strokes sweep left→right over ~2.4 s, staggered centre-out. Reduced motion skips straight to the full field. Tunable via `intro.{duration,stagger}`.
+- Prototype QoL (session 2): nested config keys overridable via dot-path query params (`?band.opacity=0.4`); fixed `scripts/shot.mjs` default URL (serve's 301 on `/prototype/index.html` broke the module import, so screenshots showed an empty field).
+- `CLAUDE.md` (conventions), `docs/BRIEF.md` (kick-off brief — also saved here as `claude/kickoff-brief.md`), `docs/ANIMATION.md` (engine mechanics + tuning table), `docs/SUBDOMAINS.md` (decision record).
+- Reference screenshots in `docs/screenshots/`.
+## Not yet done / next
+- Possible refinements: a rosette accent, curvature-driven lattice density, a second slower lattice layer for parallax (see ANIMATION.md "next steps").
+- Real-device performance profiling (ribbon vertex count roughly doubled); adjust `mobileConfig`.
+- Push to a git remote; set up Vercel.
