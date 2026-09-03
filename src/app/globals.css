@@ -242,6 +242,121 @@ a {
   color: var(--teal);
 }
 
+/* Mailing list / Get Munerated ------------------------------------- */
+
+.mailing-list {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.mailing-list__trigger {
+  font: inherit;
+  font-size: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 180ms ease-out;
+}
+
+.mailing-list__trigger:hover {
+  color: var(--teal);
+}
+
+.mailing-list__form {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  background: color-mix(in oklab, var(--ground) 85%, var(--ink));
+  border: 1px solid var(--rule);
+  padding: 2px 6px;
+  border-radius: 2px;
+  animation: rise 240ms var(--ease-out) both;
+}
+
+.mailing-list__input {
+  font: inherit;
+  font-size: var(--fs-meta);
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+  color: var(--ink);
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 140px;
+  padding: 2px 4px;
+}
+
+.mailing-list__input::placeholder {
+  color: var(--ink-faint);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
+  font-size: 0.65rem;
+}
+
+.mailing-list__submit {
+  font: inherit;
+  font-size: 0.65rem;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--teal);
+  background: none;
+  border: none;
+  padding: 2px 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: opacity 140ms ease-out;
+}
+
+.mailing-list__submit:hover:not(:disabled) {
+  opacity: 0.7;
+}
+
+.mailing-list__submit:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.mailing-list__close {
+  font: inherit;
+  font-size: 0.65rem;
+  color: var(--ink-soft);
+  background: none;
+  border: none;
+  padding: 2px;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 140ms ease-out;
+}
+
+.mailing-list__close:hover {
+  color: var(--ink);
+}
+
+.mailing-list__success {
+  color: var(--teal);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  animation: rise 240ms var(--ease-out) both;
+}
+
+.mailing-list__error {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 4px;
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: #e5484d;
+  white-space: nowrap;
+}
+
 .wordmark__prefix {
   font-weight: 400;
 }

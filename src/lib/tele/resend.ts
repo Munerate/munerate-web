@@ -135,3 +135,17 @@ Finance for intelligence`,
     ),
   };
 }
+
+export function mailingListEmail(email: string): EmailPayload {
+  return {
+    to: process.env.TELE_NOTIFY_EMAIL ?? "munerated@gmail.com",
+    replyTo: email,
+    subject: `munerate — new subscriber: ${email}`,
+    text: `New subscriber on munerate.com:\n\nEmail: ${email}\nDate: ${new Date().toISOString()}`,
+    html: shell(
+      `<h1 style="font-size:16px;letter-spacing:.18em;text-transform:uppercase;font-weight:500">Mailing List Signup</h1>
+       <p style="font-size:15px;margin-top:16px"><strong>${esc(email)}</strong> joined the munerate mailing list.</p>
+       <p style="font-size:12px;color:#6b7684;margin-top:24px">Time: ${new Date().toUTCString()}</p>`,
+    ),
+  };
+}

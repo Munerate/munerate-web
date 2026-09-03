@@ -1,6 +1,7 @@
 import { GuillocheField } from "@/components/GuillocheField";
 import { Hero } from "@/components/Hero";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { MailingList } from "@/components/MailingList";
 
 export default function Landing() {
   return (
@@ -17,7 +18,7 @@ export default function Landing() {
         <footer className="landing__bottom">
           <span className="landing__hide-sm">© {new Date().getFullYear()} munerate</span>
           <ThemeToggle />
-          <a href="mailto:hello@munerate.com">hello@munerate.com</a>
+          <MailingList />
         </footer>
       </main>
     </>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { GuillocheField } from "@/components/GuillocheField";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { MailingList } from "@/components/MailingList";
 import { isAllowed } from "@/lib/tele/ipAllow";
 import { AccessForm } from "./AccessForm";
 import { DemoHolding } from "./DemoHolding";
@@ -48,7 +49,7 @@ export default async function TeleGate() {
         <footer className="landing__bottom">
           <span className="landing__hide-sm">© {new Date().getFullYear()} munerate</span>
           <ThemeToggle />
-          <a href="mailto:hello@munerate.com">hello@munerate.com</a>
+          <MailingList />
         </footer>
       </main>
     </>
