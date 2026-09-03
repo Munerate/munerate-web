@@ -12,6 +12,15 @@ export function MailingList() {
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const triggerRef = useRef<HTMLButtonElement>(null);
+
+  const closeForm = () => {
+    setIsOpen(false);
+    setStatus("idle");
+    setErrorMsg("");
+    triggerRef.current?.focus();
+  };
+
   // Focus input when opened
   useEffect(() => {
     if (isOpen) {
@@ -25,17 +34,13 @@ export function MailingList() {
 
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        setIsOpen(false);
-        setStatus("idle");
-        setErrorMsg("");
+        closeForm();
       }
     };
 
     const onPointerDown = (e: PointerEvent) => {
       if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
-        setIsOpen(false);
-        setStatus("idle");
-        setErrorMsg("");
+        closeForm();
       }
     };
 
@@ -67,67 +72,58 @@ export function MailingList() {
     });
   };
 
-  if (status === "success") {
-    return (
-      <div className="mailing-list">
-        <span className="mailing-list__success">You&apos;re on the list ✓</span>
-      </div>
-    );
-  }
-
-  if (!isOpen) {
-    return (
-      <div className="mailing-list">
-        <button
-          type="button"
-          className="mailing-list__trigger"
-          onClick={() => setIsOpen(true)}
-          aria-expanded="false"
-        >
-          Get Munerated
-        </button>
-      </div>
-    );
-  }
+  const isOverlayOpen = isOpen || status === "success";
 
   return (
     <div ref={containerRef} className="mailing-list">
-      <form className="mailing-list__form" onSubmit={handleSubmit} noValidate>
-        <input
-          ref={inputRef}
-          className="mailing-list__input"
-          type="email"
-          name="email"
-          placeholder="your email"
-          required
-          autoComplete="email"
-          autoCapitalize="none"
-          spellCheck={false}
-          disabled={isPending}
-        />
-        <button
-          className="mailing-list__submit"
-          type="submit"
-          disabled={isPending}
-          aria-label="Submit email to mailing list"
-        >
-          {isPending ? "…" : "join"}
-        </button>
-        <button
-          className="mailing-list__close"
-          type="button"
-          onClick={() => {
-            setIsOpen(false);
-            setStatus("idle");
-            setErrorMsg("");
-          }}
-          aria-label="Close form"
-        >
-          ✕
-        </button>
-      </form>
-      {status === "error" && errorMsg ? (
-        <span className="mailing-list__error">{errorMsg}</span>
+      <button
+        ref={triggerRef}
+        type="button"
+        className={`mailing-list__trigger${isOverlayOpen ? " mailing-list__trigger--hidden" : ""}`}
+        onClick={() => setIsOpen(true)}
+        aria-expanded={isOpen}
+        aria-hidden={isOverlayOpen}
+        tabIndex={isOverlayOpen ? -1 : 0}
+      >
+        Get Munerated
+      </button>
+
+      {status === "success" ? (
+        <span className="mailing-list__success">You&apos;re on the list ✓</span>
+      ) : isOpen ? (
+        <form className="mailing-list__form" onSubmit={handleSubmit} noValidate>
+          <input
+            ref={inputRef}
+            className="mailing-list__input"
+            type="email"
+            name="email"
+            placeholder="your email"
+            required
+            autoComplete="email"
+            autoCapitalize="none"
+            spellCheck={false}
+            disabled={isPending}
+          />
+          <button
+            className="mailing-list__submit"
+            type="submit"
+            disabled={isPending}
+            aria-label="Submit email to mailing list"
+          >
+            {isPending ? "…" : "join"}
+          </button>
+          <button
+            className="mailing-list__close"
+            type="button"
+            onClick={closeForm}
+            aria-label="Close form"
+          >
+            ✕
+          </button>
+          {status === "error" && errorMsg ? (
+            <span className="mailing-list__error">{errorMsg}</span>
+          ) : null}
+        </form>
       ) : null}
     </div>
   );

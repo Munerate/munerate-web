@@ -62,9 +62,6 @@ a {
 
 .landing__top,
 .landing__bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
   gap: var(--space-4);
   font-size: var(--fs-meta);
   letter-spacing: var(--tracking-caps);
@@ -81,6 +78,25 @@ a {
 }
 
 .landing__top > :last-child {
+  justify-self: end;
+  text-align: right;
+}
+
+.landing__bottom {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+}
+
+.landing__bottom > :first-child {
+  justify-self: start;
+}
+
+.landing__bottom > :nth-child(2) {
+  justify-self: center;
+}
+
+.landing__bottom > :last-child {
   justify-self: end;
   text-align: right;
 }
@@ -293,7 +309,8 @@ a {
 .mailing-list {
   position: relative;
   display: inline-flex;
-  align-items: baseline;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .mailing-list__trigger {
@@ -310,11 +327,20 @@ a {
   transition: color 180ms ease-out;
 }
 
+.mailing-list__trigger--hidden {
+  visibility: hidden;
+  pointer-events: none;
+}
+
 .mailing-list__trigger:hover {
   color: var(--teal);
 }
 
 .mailing-list__form {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
   display: inline-flex;
   align-items: center;
   gap: var(--space-1);
@@ -322,7 +348,9 @@ a {
   border: 1px solid var(--rule);
   padding: 2px 6px;
   border-radius: 2px;
-  animation: rise 240ms var(--ease-out) both;
+  white-space: nowrap;
+  animation: mailing-list-rise 240ms var(--ease-out) both;
+  z-index: 10;
 }
 
 .mailing-list__input {
@@ -335,6 +363,7 @@ a {
   border: none;
   outline: none;
   width: 140px;
+  max-width: calc(100vw - 2 * var(--gutter) - 130px);
   padding: 2px 4px;
 }
 
@@ -385,22 +414,38 @@ a {
 }
 
 .mailing-list__success {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
   color: var(--teal);
   letter-spacing: var(--tracking-caps);
   text-transform: uppercase;
-  animation: rise 240ms var(--ease-out) both;
+  white-space: nowrap;
+  animation: mailing-list-rise 240ms var(--ease-out) both;
 }
 
 .mailing-list__error {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 4px);
   right: 0;
-  margin-top: 4px;
   font-size: 0.62rem;
   letter-spacing: 0.04em;
   text-transform: none;
   color: #e5484d;
   white-space: nowrap;
+}
+
+@keyframes mailing-list-rise {
+  from {
+    opacity: 0;
+    transform: translateY(calc(-50% + 0.35em));
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(-50%);
+  }
 }
 
 .wordmark__prefix {
@@ -415,6 +460,12 @@ a {
 @media (max-width: 640px) {
   .landing__hide-sm {
     display: none;
+  }
+
+  .landing__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 }
 
