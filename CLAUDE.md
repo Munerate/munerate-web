@@ -57,6 +57,13 @@ scripts/shot.mjs        Playwright screenshot helper
 - **Wordmark is type.** `munerate` in Space Grotesk 700, no trailing full
   stop (decision 2026-09-02). Never an image. Subbrands are
   `prefix · munerate` via `<Wordmark prefix="re" />`.
+- **The mark is geometry.** The node mark (four nodes and a heavier
+  centre fused into an M) lives as one path in `src/components/Mark.tsx`,
+  drawn as exact metaball tangency and fitted to a centred 100×100 box —
+  never a raster, never a filter. `public/favicon.svg` carries the same
+  outline as a static file; change one, change the other. `<HomeMark />`
+  centres it in `.landing__top` as the home button — `/` on the apex,
+  the apex URL on a subdomain surface.
 - **Plain CSS, BEM-ish classes**, one `globals.css` for now. Split into
   co-located CSS modules only when a second page exists.
 - **Server components by default.** Client components are limited to the

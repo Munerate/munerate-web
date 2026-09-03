@@ -2,6 +2,7 @@ import { GuillocheField } from "@/components/GuillocheField";
 import { Hero } from "@/components/Hero";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { MailingList } from "@/components/MailingList";
+import { HomeMark } from "@/components/Mark";
 
 export default function Landing() {
   return (
@@ -10,6 +11,7 @@ export default function Landing() {
       <main className="landing">
         <header className="landing__top">
           <span>munerate</span>
+          <HomeMark />
           <span className="landing__hide-sm">The financial core for physical AI</span>
         </header>
 

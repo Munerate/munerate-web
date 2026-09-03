@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import { GuillocheField } from "@/components/GuillocheField";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { MailingList } from "@/components/MailingList";
+import { HomeMark } from "@/components/Mark";
 import { isAllowed } from "@/lib/tele/ipAllow";
 import { AccessForm } from "./AccessForm";
 import { DemoHolding } from "./DemoHolding";
@@ -11,6 +12,11 @@ export const metadata: Metadata = {
   title: "tele · munerate — telemetry demo access",
   description: "Kinetic Telemetry : Quantified Risk. Whitelisted access only.",
 };
+
+// Home is the apex surface, not this host's root — `/` here is rewritten
+// straight back to the gate (see src/middleware.ts).
+const HOME =
+  process.env.NODE_ENV === "production" ? "https://munerate.com" : "http://localhost:3000";
 
 // The gate depends on the visitor's IP — never prerender.
 export const dynamic = "force-dynamic";
@@ -39,6 +45,7 @@ export default async function TeleGate() {
       <main className="landing tele">
         <header className="landing__top">
           <span>tele · munerate</span>
+          <HomeMark href={HOME} />
           <span className="landing__hide-sm">Kinetic Telemetry : Quantified Risk</span>
         </header>
 

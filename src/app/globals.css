@@ -72,6 +72,52 @@ a {
   color: var(--ink-soft);
 }
 
+/* Top rule: three columns so the mark sits dead centre whatever flanks it
+   — including on mobile, where the tagline is hidden but keeps its cell. */
+.landing__top {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+}
+
+.landing__top > :last-child {
+  justify-self: end;
+  text-align: right;
+}
+
+/* Node mark — home button ------------------------------------------- */
+
+.mark-home {
+  justify-self: center;
+  display: inline-flex;
+  /* padding out, margin back: a real hit area around a small glyph */
+  padding: var(--space-3);
+  margin: calc(var(--space-3) * -1);
+  color: var(--ink-soft);
+  animation: rise var(--dur-slow) var(--ease-out) 240ms both;
+}
+
+.mark-home__glyph {
+  display: block;
+  width: clamp(19px, 2vw, 26px);
+  height: auto;
+  transition:
+    color 300ms var(--ease-out),
+    transform 300ms var(--ease-out);
+}
+
+.mark-home:hover .mark-home__glyph,
+.mark-home:focus-visible .mark-home__glyph {
+  color: var(--teal);
+  transform: translateY(-1px) scale(1.08);
+}
+
+.mark-home:focus-visible {
+  outline: 1px solid var(--teal);
+  outline-offset: 1px;
+  border-radius: 3px;
+}
+
 .landing__hero {
   display: grid;
   place-content: center;
@@ -589,5 +635,18 @@ textarea.tele-form__input {
   .hero__prefix,
   .hero__suffix {
     display: none;
+  }
+
+  .mark-home {
+    animation: none;
+  }
+
+  .mark-home__glyph {
+    transition: color 300ms var(--ease-out);
+  }
+
+  .mark-home:hover .mark-home__glyph,
+  .mark-home:focus-visible .mark-home__glyph {
+    transform: none;
   }
 }
